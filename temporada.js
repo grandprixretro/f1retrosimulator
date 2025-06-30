@@ -1,14 +1,11 @@
-const gps = [
-  "Brasil", "Pacífico", "San Marino", "Mônaco", "Espanha",
-  "Canadá", "França", "Grã-Bretanha", "Alemanha", "Hungria",
-  "Bélgica", "Itália", "Portugal", "Europa", "Japão", "Austrália"
-];
-
-const pilotos = ["Senna", "Schumacher", "Hill", "Berger", "Hakkinen", "Alesi"];
 const pontuacao = [10, 6, 4, 3, 2, 1];
 
+let ano = localStorage.getItem("anoAtual") || "1994";
 let corridaAtual = 0;
 let tabela = {};
+
+const pilotos = dadosTemporadas[ano].pilotos;
+const gps = dadosTemporadas[ano].gps;
 pilotos.forEach(p => tabela[p] = 0);
 
 document.getElementById("equipeEscolhida").textContent = localStorage.getItem("minhaEquipe");
@@ -24,7 +21,7 @@ function simularCorrida() {
     .sort((a, b) => b.pontos - a.pontos);
 
   const div = document.createElement("div");
-  div.innerHTML = `<h3>${gps[corridaAtual]}</h3>` + 
+  div.innerHTML = `<h3>${gps[corridaAtual]} (${ano})</h3>` + 
     resultado.map((r, i) => {
       if (i < pontuacao.length) {
         tabela[r.piloto] += pontuacao[i];
@@ -43,7 +40,15 @@ function mostrarCampeonato() {
   document.getElementById("resultados").appendChild(div);
 
   const avancar = document.createElement("button");
-  avancar.textContent = "Avançar para 1995";
-  avancar.onclick = () => window.location.href = "temporada.html"; // mesma lógica por enquanto
+  avancar.textContent = "Avançar para " + (parseInt(ano)+1);
+  avancar.onclick = () => {
+    const proximoAno = (parseInt(ano) + 1).toString();
+    if (!dadosTemporadas[proximoAno]) {
+      alert("Temporadas futuras ainda não implementadas!");
+      return;
+    }
+    localStorage.setItem("anoAtual", proximoAno);
+    window.location.href = "temporada.html";
+  };
   document.body.appendChild(avancar);
 }
