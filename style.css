@@ -1,16 +1,19 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Courier New", monospace;
   background-color: black;
-  color: white;
+  color: #00FF00;
   text-align: center;
-  margin-top: 50px;
+  margin-top: 40px;
 }
-button {
+button, select {
   padding: 10px 20px;
   font-size: 16px;
+  background-color: #222;
+  border: 2px solid #00FF00;
+  color: #00FF00;
   margin-top: 20px;
+  font-family: inherit;
 }
-select {
-  font-size: 16px;
-  padding: 5px;
+h1, h2, h3 {
+  color: #00FF00;
 }
